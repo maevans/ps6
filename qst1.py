@@ -34,8 +34,8 @@ def alignStrings(x,y):
     maxScore = str(S[i][j]) #Maximum score for the end of the shortest word 
   
   #Calculate matrix 
-    x_align = x[:i] #v
-    y_align = y[:j] #w
+    x_align = x[:i]
+    y_align = y[:j]
     
     swapIdeal = lambda string, i: string[:i] + '  ' + string[i:] #Swap for Ideals 
   
