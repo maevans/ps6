@@ -59,7 +59,8 @@ def alignStrings(x,y):
 #Print Alignment 
 print 'Alignment: ', align
 
-
+# Part 2: Extract Alignment Function
+# Ryan Cooper
 
 def extractAlignment(S, x, y):
     i = len(S)-1
@@ -117,6 +118,9 @@ arr = [[0,1,2,3],[1,1,2,3],[2,2,2,3],[3,3,3,2],[4,4,3,3]]
 print determineOptimalOp(arr,1,1, "step", "ape")
 extractAlignment(arr, "step", "ape")
 
+# Part 3: Common Sub Strings Function 
+# Ryan Shuman 
+            
 #def commonSubstrings(x, L, a):
  #   commonstrings = []
   #  for i in range (0, len(a)):
