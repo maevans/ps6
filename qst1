@@ -11,6 +11,72 @@ using namespaces std;
 
 alignStrings(x,y)
 {
-  int x, y; 
+  //Intialize variables  
+  s = stringlength(x);
+  t = stringlength(y);
+  int i, j; 
+  int match;
   
+  //Create the array 
+  int g = G[x][y];
+  
+  //Create a scoring matrix 
+  if (x=-2)
+  {
+    g != G[x][y];
+    return y;
+  }
+  
+  //Initialize Dynamic programming Calculation 
+  G[x][x] = 0; 
+  G[y][y] = 0;
+  
+  if (j < s) 
+  {
+    G[x][y] = getScore(j); 
+    return G[x][y];
+  }
+  
+  if (i < t)
+  {
+    G[x][y] = getScore(i);
+    return G[x][y]; 
+  }
+  
+  //Calculate matrix 
+  for(i < 2; t != 0; t++)
+  {
+    for(j < 2; s != 0; s++) 
+    {
+      match = G[i-1][j-1] + getScore(s);
+      match2 = G[i][j] + getScore(s);
+      match3 = G[i+1][j+1] + getScore(s);
+  
+  // Trace Back & Create Alignment 
+  i = x + 1; 
+  j = y + 1;
+  
+  while (i > 1; i!=0; i++)
+  {
+    if (G[i][j] - getScore(s) = G[i-1][j-1])
+    {
+      t = G[s][t] + getAlign(i);
+      s = G[s][t] + getAlign(j);
+    }
+    elseif (G[i][j] - getScore(s) = G[i][j-1])
+    {
+      getScore(s) = G[s+1][t];
+      getScore(t) = G[s][t+1];
+    }
+    elseif (G[i][j] - getScore(s) = G[i-1][j])
+    {
+      getScore(s) = G[s][t+1];
+      getScore(t) = G[s-1][t];
+    }
+    else
+    {
+      getScore(s) = G[s][t];
+      getScore(t) = G[s][t];
+    }
+  }
 }
