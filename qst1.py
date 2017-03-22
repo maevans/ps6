@@ -5,8 +5,15 @@
 # Part 1: Align Strings Function 
 # Mahalia Evans 
 
-def alignStrings(x,y):
+  #Prompt the user for two words 
+  word1 = input('First word: ')
+  word2 = input('Second word: ')
+  
+  #Align the inputs
+  align = alignStrings(word1, word2)
 
+def alignStrings(x,y):
+  
   #Intialize table & variables   
     S = [[0 for i in xrange(len(x)+1)] for j in xrange(len(y)+1)] 
     back = [[0 for i in xrange(len(x)+1)] for j in xrange(len(y)+1)] #To backtrack through the string 
@@ -42,6 +49,12 @@ def alignStrings(x,y):
         i -= 1
         j -= 1
         
-  return maxScore, x_aligned, y_aligned  #Return Matrix
+  return maxScore, x_align, y_align  #Return Matrix  
   
+  print 'Matrix: ', maxScore, '  ', x_align, '  ', y_align  
 #End of function    
+
+#Print Alignment 
+print 'Alignment: ', align
+            
+            
