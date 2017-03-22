@@ -7,60 +7,6 @@
 
 import random
 
-  #Prompt the user for two words 
-  word1 = input('First word: ')
-  word2 = input('Second word: ')
-  
-  #Align the inputs
-  align = alignStrings(word1, word2)
-
-def alignStrings(x,y):
-  
-  #Intialize table & variables   
-    S = [[0 for i in xrange(len(x)+1)] for j in xrange(len(y)+1)] 
-    back = [[0 for i in xrange(len(x)+1)] for j in xrange(len(y)+1)] #To backtrack through the string 
-  
-  #Create a scoring matrix 
-    for i in xrange(1, (len(x)+1)):
-      for j in range(1, (len(y)+1)): 
-        score = (S[i-1][j] - 1) , (S[i][j-1] - 1), (S[i-1][j-1] + [-1,1]x[i-1] == y[j-1]) #Base Cases
-        S[i][j] = max(score)
-        back[i][j] = score.index(S[i][j])
-  
-  #Initialize Dynamic programming Calculation 
-  #Get max score of shortest word 
-    i = max(enumerated(S[level][j] for level in xrange(len(y), len(x))), (key = lambda x: x[1]), ([0] + len(y))
-    j = len(y)
-    maxScore = str(S[i][j]) #Maximum score for the end of the shortest word 
-  
-  #Calculate matrix 
-    x_align = x[:i]
-    y_align = y[:j]
-    
-    swapIdeal = lambda string, i: string[:i] + '  ' + string[i:] #Swap for Ideals 
-  
-  #Trace Back & Create Alignment 
-    while i & j != 0: 
-      if back[i][j] == 0: 
-        i -= 1
-        y_align = swapIdeal(y_align, j)
-      elif back[i][j] == 1: 
-        j -= 1
-        x_align = swapIdeal(x_align, i) 
-      elif back[i][j] == 2: 
-        i -= 1
-        j -= 1
-        
-  return maxScore, x_align, y_align  #Return Matrix  
-  
-  print 'Matrix: ', maxScore, '  ', x_align, '  ', y_align  
-#End of function    
-
-#Print Alignment 
-print 'Alignment: ', align
-
-
-
 def extractAlignment(S, x, y):
     i = len(S)-1
     j = len(S[0])-1
@@ -113,9 +59,54 @@ def updateIndices(S, i, j, a):
         j = j-2
         return(i,j)
 
-arr = [[0,1,2,3],[1,1,2,3],[2,2,2,3],[3,3,3,2],[4,4,3,3]]
-print determineOptimalOp(arr,1,1, "step", "ape")
-extractAlignment(arr, "step", "ape")
+def alignStrings(x, y):
+    S = [[0 for i in range(0, len(y) + 1)] for j in range(0, len(x) + 1)]
+    costsub = 1
+    costindel = 1
+    costswap = 1
+
+    for i in range (0,len(x)+1):
+        S[i][0] = i
+    for j in range (0, len(y)+1):
+        S[0][j] =j
+    for j in range (1, len(y)+1):
+        nextoptions=[]
+        i = 1
+        nextoptions.append(S[i-1][j-1] +costsub)
+        nextoptions.append(S[i-1][j]+costindel)
+        nextoptions.append(S[i][j-1]+costindel)
+        if (x[i-1]==y[j-1]):
+            nextoptions.append(S[i-1][j-1])
+        S[i][j] = min(nextoptions)
+
+    for i in range (1, len(x)+1):
+        nextoptions=[]
+        j = 1
+        nextoptions.append(S[i - 1][j - 1] + costsub)
+        nextoptions.append(S[i - 1][j] + costindel)
+        nextoptions.append(S[i][j - 1] + costindel)
+        if (x[i-1] == y[j-1]):
+            nextoptions.append(S[i - 1][j - 1])
+        S[i][j] = min(nextoptions)
+
+
+    for j in range(2, len(y)+1):
+        for i in range(2, len(x)+1):
+            nextoptions=[]
+            nextoptions.append(S[i - 1][j - 1] + costsub)
+            nextoptions.append(S[i - 1][j] + costindel)
+            nextoptions.append(S[i][j - 1] + costindel)
+            if (x[i-1] == y[j-1]):
+                nextoptions.append(S[i - 1][j - 1])
+            if (x[i-1] == y[j-2]):
+                nextoptions.append(S[i-2][j-2]+costswap)
+            S[i][j] = min(nextoptions)
+    return S
+extractAlignment(alignStrings("step", "ape"), "step", "ape")
+
+#arr = [[0,1,2,3],[1,1,2,3],[2,2,2,3],[3,3,3,2],[4,4,3,3]]
+#print determineOptimalOp(arr,1,1, "step", "ape")
+#extractAlignment(arr, "step", "ape")
 
 #def commonSubstrings(x, L, a):
  #   commonstrings = []
@@ -127,4 +118,3 @@ extractAlignment(arr, "step", "ape")
   #      if (a[i+1] == "No-op"):
    #
     #    if (a[i+1] == noo
-
