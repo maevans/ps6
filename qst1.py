@@ -108,6 +108,9 @@ extractAlignment(alignStrings("step", "ape"), "step", "ape")
 #print determineOptimalOp(arr,1,1, "step", "ape")
 #extractAlignment(arr, "step", "ape")
 
+# Part 3: Common Sub Strings Function 
+# Ryan Shuman 
+            
 #def commonSubstrings(x, L, a):
  #   commonstrings = []
   #  for i in range (0, len(a)):
