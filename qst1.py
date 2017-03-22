@@ -8,9 +8,15 @@
 import random
 
 def extractAlignment(S, x, y):
+    #start in bottom right corner
     i = len(S)-1
     j = len(S[0])-1
+    #list that will be given optimal operations
     a = []
+    #iterate through cost matrix by tracing back the most recent operation
+    # and updating the indices as such.
+    #ties are broken randomly by making a list of the potential
+    #tracebacks and randomly selecting one.
     while (i, j) != (0, 0):
         a.append(determineOptimalOp(S, i, j, x, y))
         newind = updateIndices(S,i,j, a)
@@ -19,6 +25,9 @@ def extractAlignment(S, x, y):
     a = list(reversed(a))
     print a
 
+#determines the optimal operation in the traceback of the optimal cost matrix
+#costs of operations can be changed to account for different scenarios
+#ties are broken randomly
 def determineOptimalOp(S, i, j, x, y):
     subcost = 1
     indelcost = 1
@@ -37,7 +46,7 @@ def determineOptimalOp(S, i, j, x, y):
 
     return (random.choice(potentialops))
 
-
+#updates the i and j indices during the traceback based on what operation was taken
 def updateIndices(S, i, j, a):
     if a[len(a)-1] == "No-op":
         i = i-1
@@ -59,16 +68,22 @@ def updateIndices(S, i, j, a):
         j = j-2
         return(i,j)
 
+#returns the optimal cost matrix for 2 given strings
 def alignStrings(x, y):
     S = [[0 for i in range(0, len(y) + 1)] for j in range(0, len(x) + 1)]
     costsub = 1
     costindel = 1
     costswap = 1
 
+    #fills in the first row
     for i in range (0,len(x)+1):
         S[i][0] = i
+
+    #fills in the first column
     for j in range (0, len(y)+1):
         S[0][j] =j
+
+    #fills in the second row(Swap will be out of range)
     for j in range (1, len(y)+1):
         nextoptions=[]
         i = 1
@@ -79,6 +94,7 @@ def alignStrings(x, y):
             nextoptions.append(S[i-1][j-1])
         S[i][j] = min(nextoptions)
 
+    #fills in the second column(Swap will be out of range)
     for i in range (1, len(x)+1):
         nextoptions=[]
         j = 1
@@ -89,7 +105,7 @@ def alignStrings(x, y):
             nextoptions.append(S[i - 1][j - 1])
         S[i][j] = min(nextoptions)
 
-
+    #fills in the rest of the matrix where Swap is in range
     for j in range(2, len(y)+1):
         for i in range(2, len(x)+1):
             nextoptions=[]
@@ -102,6 +118,9 @@ def alignStrings(x, y):
                 nextoptions.append(S[i-2][j-2]+costswap)
             S[i][j] = min(nextoptions)
     return S
+
+#Running the following will yield the exact output in the example
+#from the lecture notes
 extractAlignment(alignStrings("step", "ape"), "step", "ape")
 
 #arr = [[0,1,2,3],[1,1,2,3],[2,2,2,3],[3,3,3,2],[4,4,3,3]]
