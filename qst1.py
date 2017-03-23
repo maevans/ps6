@@ -2,9 +2,6 @@
 
 # Answers to Question 1 of Problem Set #6 
 
-# Part 1: Align Strings Function 
-# Mahalia Evans
-
 import random
 
 def extractAlignment(S, x, y):
