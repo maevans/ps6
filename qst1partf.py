@@ -29,7 +29,7 @@ from qst1.py import alignStrings(x,y)
     def overlap(a,b)
         return list(set(a) & set(b))
         print overlap(a, B)
-    using alignStrings(x,y) 
+    with alignStrings(x,y) 
         c = overlap(a, b)
         if c > 7
             print c 
